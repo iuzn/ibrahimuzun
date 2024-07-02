@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import { Instrument_Serif, Inter } from "next/font/google";
+import "@/styles/globals.scss";
+import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin-ext"] });
+const serif = Instrument_Serif({
+  weight: "400",
+  subsets: ["latin-ext"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={cn("bg-50 flex items-center justify-center",inter.className,serif.className)}>{children}</body>
     </html>
   );
 }

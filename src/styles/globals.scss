@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-50 text-700 h-screen scroll-smooth antialiased;
+  }
+
+  a,
+  button {
+    @apply focus-visible:ring-200 ring-offset-50 focus-visible:shadow-none focus-visible:outline-none focus-visible:ring focus-visible:ring-offset-2 focus-visible:drop-shadow-none;
+  }
+}
+
+@layer components {
+  $color-steps: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950;
+  $color-steps-reversed: 950, 900, 800, 700, 600, 500, 400, 300, 200, 100, 50;
+  $prefixes: "bg", "text", "fill", "stroke", "divide", "ring-offset";
+  $colors: (
+    "neutral": "",
+    "rose": "rd-",
+    "emerald": "gn-",
+  );
+  $border-sizes: "0", "2", "4", "8";
+  $sizes: "0", "1", "2", "4", "8";
+  $shadow-sizes: "sm", "md", "lg", "xl", "2xl", "inner";
+  $directions: "t", "r", "b", "l", "x", "y", "s", "e";
+
+  @each $color-name, $color-prefix in $colors {
+    @each $prefix in $prefixes {
+      @each $step in $color-steps {
+        $index: index($color-steps, $step);
+        $reversed-step: nth($color-steps-reversed, $index);
+        .#{$prefix}-#{$color-prefix}#{$step} {
+          @apply #{$prefix}-#{$color-name}-#{$step} dark:#{$prefix}-#{$color-name}-#{$reversed-step};
+        }
+      }
+    }
+
+    @each $step in $color-steps {
+      $index: index($color-steps, $step);
+      $reversed-step: nth($color-steps-reversed, $index);
+
+      .border-#{$color-prefix}#{$step} {
+        @apply border-#{$color-name}-#{$step} dark:border-#{$color-name}-#{$reversed-step} border;
+      }
+      .outline-#{$color-prefix}#{$step} {
+        @apply outline-#{$color-name}-#{$step} dark:outline-#{$color-name}-#{$reversed-step} outline;
+      }
+      .ring-#{$color-prefix}#{$step} {
+        @apply ring-#{$color-name}-#{$step} dark:ring-#{$color-name}-#{$reversed-step} ring;
+      }
+      .shadow-#{$color-prefix}#{$step} {
+        @apply shadow-#{$color-name}-#{$step} dark:shadow-#{$color-name}-#{$reversed-step} shadow;
+      }
+
+      @each $size in $border-sizes {
+        @each $direction in $directions {
+          .border-#{$direction}-#{$size}-#{$color-prefix}#{$step} {
+            @apply border-#{$direction}-#{$size} border-#{$color-name}-#{$step} dark:border-#{$color-name}-#{$reversed-step};
+          }
+          .border-#{$direction}-#{$color-prefix}#{$step} {
+            @apply border-#{$direction} border-#{$color-name}-#{$step} dark:border-#{$color-name}-#{$reversed-step};
+          }
+        }
+        .border-#{$size}-#{$color-prefix}#{$step} {
+          @apply border-#{$size} border-#{$color-name}-#{$step} dark:border-#{$color-name}-#{$reversed-step};
+        }
+      }
+
+      @each $size in $sizes {
+        .outline-#{$size}-#{$color-prefix}#{$step} {
+          @apply outline-#{$size} outline-#{$color-name}-#{$step} dark:outline-#{$color-name}-#{$reversed-step} outline;
+        }
+        .ring-#{$size}-#{$color-prefix}#{$step} {
+          @apply ring-#{$size} ring-#{$color-name}-#{$step} dark:ring-#{$color-name}-#{$reversed-step};
+        }
+      }
+
+      @each $size in $shadow-sizes {
+        .shadow-#{$size}-#{$color-prefix}#{$step} {
+          @apply shadow-#{$size} shadow-#{$color-name}-#{$step} dark:shadow-#{$color-name}-#{$reversed-step};
+        }
+      }
+    }
+  }
+
+  .bg-default {
+    @apply bg-white dark:bg-black;
+  }
+  .bg-reversed {
+    @apply bg-black dark:bg-white;
+  }
+  .text-default {
+    @apply text-black dark:text-white;
+  }
+  .text-reversed {
+    @apply text-white dark:text-black;
+  }
+  .border-default {
+    @apply border-black dark:border-white;
+  }
+  .border-reversed {
+    @apply border-white dark:border-black;
+  }
+  .ring-default {
+    @apply ring-black dark:ring-white;
+  }
+  .ring-reversed {
+    @apply ring-white dark:ring-black;
+  }
+  .shadow-default {
+    @apply shadow-black dark:shadow-white;
+  }
+  .shadow-reversed {
+    @apply shadow-white dark:shadow-black;
+  }
+  .outline-default {
+    @apply outline-black dark:outline-white;
+  }
+  .outline-reversed {
+    @apply outline-white dark:outline-black;
+  }
+
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+  .skeleton {
+    @apply relative w-full space-y-5 overflow-hidden rounded-lg bg-white/5   before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_1s_infinite] before:border-t before:border-neutral-500/10 before:bg-gradient-to-r before:from-transparent before:via-neutral-500/10 before:to-transparent;
+  }
+}
+
+@layer utilities {
+}
